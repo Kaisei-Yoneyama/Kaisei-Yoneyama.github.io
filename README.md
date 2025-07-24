@@ -30,3 +30,9 @@ npm run dev # 開発サーバーを起動
 - `npm run lint:fix`: ESLint でコードを修正する
 - `npm run format`: Prettier でコードをチェックする
 - `npm run format:fix`: Prettier でコードを整形する
+
+### デプロイ
+
+`main` ブランチにプッシュすると GitHub Pages にデプロイを行うワークフローが実行される。
+
+- `.github/workflows/deploy.yml`
