@@ -15,10 +15,10 @@ export const metadata: Metadata = {
     default: "Kaisei Yoneyama",
     template: "%s | Kaisei Yoneyama",
   },
-  description: "米山魁星のポートフォリオサイトです。",
+  description: "@Kaisei-Yoneyama のポートフォリオサイトです。",
   openGraph: {
     title: "Kaisei Yoneyama",
-    description: "米山魁星のポートフォリオサイトです。",
+    description: "@Kaisei-Yoneyama のポートフォリオサイトです。",
     url: baseUrl,
     siteName: "Kaisei Yoneyama",
     locale: "ja_JP",
