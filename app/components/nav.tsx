@@ -21,15 +21,15 @@ type NavItem = {
 
 const navItems: Record<string, NavItem> = {
   "/": {
-    name: "home",
+    name: "ホーム",
     icon: HomeIcon,
   },
   "/blog": {
-    name: "blog",
+    name: "ブログ",
     icon: DocumentTextIcon,
   },
-  "https://vercel.com/templates/next.js/portfolio-starter-kit": {
-    name: "deploy",
+  "https://github.com/Kaisei-Yoneyama": {
+    name: "GitHub",
     icon: RocketLaunchIcon,
   },
 }
@@ -63,7 +63,7 @@ export function Navbar() {
           </ul>
         </div>
         <Link href="/" className="btn btn-ghost text-xl">
-          Portfolio
+          Kaisei Yoneyama
         </Link>
       </div>
       <div className="navbar-center hidden lg:flex">
@@ -102,7 +102,7 @@ export function Navbar() {
                 className={clsx(theme === "light" && "active")}
               >
                 <SunIcon className="h-4 w-4" />
-                Light
+                ライト
               </button>
             </li>
             <li>
@@ -111,7 +111,7 @@ export function Navbar() {
                 className={clsx(theme === "dark" && "active")}
               >
                 <MoonIcon className="h-4 w-4" />
-                Dark
+                ダーク
               </button>
             </li>
             <li>
@@ -120,7 +120,7 @@ export function Navbar() {
                 className={clsx(theme === "system" && "active")}
               >
                 <ComputerDesktopIcon className="h-4 w-4" />
-                System
+                システム
               </button>
             </li>
           </ul>

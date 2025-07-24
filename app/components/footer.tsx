@@ -6,42 +6,34 @@ export default function Footer() {
     <footer className="footer footer-horizontal footer-center bg-base-200 text-base-content rounded p-10">
       <nav className="grid grid-flow-col gap-4">
         <Link href="/" className="link link-hover">
-          home
+          ホーム
         </Link>
         <Link href="/blog" className="link link-hover">
-          blog
+          ブログ
         </Link>
         <a
-          href="https://vercel.com/templates/next.js/portfolio-starter-kit"
+          href="https://github.com/Kaisei-Yoneyama"
           target="_blank"
           rel="noopener noreferrer"
           className="link link-hover"
         >
-          deploy
+          GitHub
         </a>
       </nav>
       <nav>
         <div className="grid grid-flow-col gap-4">
           <a
-            href="https://github.com/vercel/next.js"
+            href="https://github.com/Kaisei-Yoneyama"
             target="_blank"
             rel="noopener noreferrer"
-            title="github"
-          >
-            <CodeBracketIcon className="h-6 w-6" />
-          </a>
-          <a
-            href="https://vercel.com/templates/next.js/portfolio-starter-kit"
-            target="_blank"
-            rel="noopener noreferrer"
-            title="view source"
+            title="GitHub"
           >
             <CodeBracketIcon className="h-6 w-6" />
           </a>
         </div>
       </nav>
       <aside>
-        <p>© {new Date().getFullYear()} MIT Licensed</p>
+        <p>© {new Date().getFullYear()} Kaisei Yoneyama</p>
       </aside>
     </footer>
   )

@@ -32,7 +32,7 @@ export function ShareButton({ title, url }: ShareButtonProps) {
   return (
     <div
       className="tooltip tooltip-bottom"
-      data-tip={copied ? "Copied!" : "Share"}
+      data-tip={copied ? "Copied!" : "共有"}
     >
       <button
         onClick={handleShare}
@@ -40,7 +40,7 @@ export function ShareButton({ title, url }: ShareButtonProps) {
           "btn btn-circle btn-ghost transition-all",
           copied && "btn-success",
         )}
-        aria-label="Share"
+        aria-label="共有"
       >
         {copied ? (
           <CheckIcon className="h-5 w-5 animate-bounce" />

@@ -1,42 +1,32 @@
-# Portfolio Blog Starter
+# Kaisei-Yoneyama.github.io
 
-This is a porfolio site template complete with a blog. Includes:
+@Kaisei-Yoneyama のポートフォリオサイト。
+Next.js の SSG で構築して GitHub Pages にデプロイする。
 
-- MDX and Markdown support
-- Optimized for SEO (sitemap, robots, JSON-LD schema)
-- RSS Feed
-- Dynamic OG images
-- Syntax highlighting
-- Tailwind v4
-- Vercel Speed Insights / Web Analytics
-- Geist font
+## 技術スタック
 
-## Demo
+![TypeScript](https://img.shields.io/badge/TypeScript-5.8.3-3178C6?style=for-the-badge&logo=typescript) ![Next.js](https://img.shields.io/badge/Next.js-15.4.2-000000?style=for-the-badge&logo=nextdotjs) ![React](https://img.shields.io/badge/React-19.1.0-61DAFB?style=for-the-badge&logo=react) ![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-4.1.11-06B6D4?style=for-the-badge&logo=tailwindcss) ![daisyUI](https://img.shields.io/badge/DaisyUI-5.0.46-5A0EF8?style=for-the-badge&logo=daisyui)
 
-https://portfolio-blog-starter.vercel.app
+## 機能
 
-## How to Use
+- ブログ: MDX 対応
+- SEO: サイトマップ生成/JSON-LD 構造化データ生成/robots.txt
 
-You can choose from one of the following two methods to use this repository:
+## 開発
 
-### One-Click Deploy
-
-Deploy the example using [Vercel](https://vercel.com?utm_source=github&utm_medium=readme&utm_campaign=vercel-examples):
-
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/vercel/examples/tree/main/solutions/blog&project-name=blog&repository-name=blog)
-
-### Clone and Deploy
-
-Execute [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) with [pnpm](https://pnpm.io/installation) to bootstrap the example:
+### 動作確認
 
 ```bash
-pnpm create next-app --example https://github.com/vercel/examples/tree/main/solutions/blog blog
+npm install # 依存関係をインストール
+npm run dev # 開発サーバーを起動
 ```
 
-Then, run Next.js in development mode:
+### npm スクリプト
 
-```bash
-pnpm dev
-```
-
-Deploy it to the cloud with [Vercel](https://vercel.com/templates) ([Documentation](https://nextjs.org/docs/app/building-your-application/deploying)).
+- `npm run dev`: 開発サーバーを起動する
+- `npm run build`: 本番用にプロジェクトをビルドする
+- `npm run serve`: 本番用にビルドしたプロジェクトを確認する
+- `npm run lint`: ESLint でコードをチェックする
+- `npm run lint:fix`: ESLint でコードを修正する
+- `npm run format`: Prettier でコードをチェックする
+- `npm run format:fix`: Prettier でコードを整形する

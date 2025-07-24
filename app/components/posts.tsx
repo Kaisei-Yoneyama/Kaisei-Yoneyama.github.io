@@ -36,7 +36,7 @@ export function BlogPosts() {
                   </span>
                 </div>
                 <button className="btn btn-primary btn-sm">
-                  Read more
+                  記事を読む
                   <ArrowRightIcon className="h-4 w-4" />
                 </button>
               </div>

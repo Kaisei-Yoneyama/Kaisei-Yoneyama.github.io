@@ -12,16 +12,16 @@ import { baseUrl } from "./sitemap"
 export const metadata: Metadata = {
   metadataBase: new URL(baseUrl),
   title: {
-    default: "Next.js Portfolio Starter",
-    template: "%s | Next.js Portfolio Starter",
+    default: "Kaisei Yoneyama",
+    template: "%s | Kaisei Yoneyama",
   },
-  description: "This is my portfolio.",
+  description: "米山魁星のポートフォリオサイトです。",
   openGraph: {
-    title: "My Portfolio",
-    description: "This is my portfolio.",
+    title: "Kaisei Yoneyama",
+    description: "米山魁星のポートフォリオサイトです。",
     url: baseUrl,
-    siteName: "My Portfolio",
-    locale: "en_US",
+    siteName: "Kaisei Yoneyama",
+    locale: "ja_JP",
     type: "website",
   },
   robots: {
@@ -43,7 +43,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className={clsx(GeistSans.variable, GeistMono.variable)}>
+    <html lang="ja" className={clsx(GeistSans.variable, GeistMono.variable)}>
       <body className="min-h-screen bg-base-100 text-base-content">
         <div className="flex flex-col min-h-screen">
           <Navbar />
