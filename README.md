@@ -1,5 +1,7 @@
 # Kaisei-Yoneyama.github.io
 
+[![Deploy Next.js site to Pages](https://github.com/Kaisei-Yoneyama/Kaisei-Yoneyama.github.io/actions/workflows/nextjs.yml/badge.svg)](https://github.com/Kaisei-Yoneyama/Kaisei-Yoneyama.github.io/actions/workflows/nextjs.yml)
+
 @​Kaisei-Yoneyama のポートフォリオサイト。  
 Next.js の SSG で構築して GitHub Pages にデプロイする。
 
