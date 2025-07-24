@@ -1,6 +1,6 @@
 # Kaisei-Yoneyama.github.io
 
-@Kaisei-Yoneyama のポートフォリオサイト。
+@​Kaisei-Yoneyama のポートフォリオサイト。
 Next.js の SSG で構築して GitHub Pages にデプロイする。
 
 ## 技術スタック
