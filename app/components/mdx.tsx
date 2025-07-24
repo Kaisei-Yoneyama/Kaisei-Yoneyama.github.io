@@ -1,15 +1,15 @@
-import Link from "next/link"
-import Image from "next/image"
 import { MDXRemote } from "next-mdx-remote/rsc"
-import { highlight } from "sugar-high"
+import Image from "next/image"
+import Link from "next/link"
 import React from "react"
+import { highlight } from "sugar-high"
 
 function Table({ data }) {
   const headers = data.headers.map((header, index) => (
     <th key={index}>{header}</th>
   ))
   const rows = data.rows.map((row, index) => (
-    <tr key={index}>
+    <tr key={index} className="hover">
       {row.map((cell, cellIndex) => (
         <td key={cellIndex}>{cell}</td>
       ))}
@@ -17,12 +17,14 @@ function Table({ data }) {
   ))
 
   return (
-    <table>
-      <thead>
-        <tr>{headers}</tr>
-      </thead>
-      <tbody>{rows}</tbody>
-    </table>
+    <div className="overflow-x-auto">
+      <table className="table table-zebra">
+        <thead>
+          <tr>{headers}</tr>
+        </thead>
+        <tbody>{rows}</tbody>
+      </table>
+    </div>
   )
 }
 

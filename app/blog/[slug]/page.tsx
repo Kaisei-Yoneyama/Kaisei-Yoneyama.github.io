@@ -1,7 +1,10 @@
-import { notFound } from "next/navigation"
-import { CustomMDX } from "app/components/mdx"
+import { CalendarIcon } from "@heroicons/react/24/outline"
 import { formatDate, getBlogPosts } from "app/blog/utils"
+import { CustomMDX } from "app/components/mdx"
+import { ShareButton } from "app/components/share-button"
 import { baseUrl } from "app/sitemap"
+import Link from "next/link"
+import { notFound } from "next/navigation"
 
 export async function generateStaticParams() {
   const posts = getBlogPosts()
@@ -84,15 +87,43 @@ export default async function Blog({ params }) {
           }),
         }}
       />
-      <h1 className="title font-semibold text-2xl tracking-tighter">
-        {post.metadata.title}
-      </h1>
-      <div className="flex justify-between items-center mt-2 mb-8 text-sm">
-        <p className="text-sm text-neutral-600 dark:text-neutral-400">
-          {formatDate(post.metadata.publishedAt)}
-        </p>
+
+      <div className="breadcrumbs text-sm mb-8">
+        <ul>
+          <li>
+            <Link href="/">Home</Link>
+          </li>
+          <li>
+            <Link href="/blog">Blog</Link>
+          </li>
+          <li>{post.metadata.title}</li>
+        </ul>
       </div>
-      <article className="prose">
+
+      <div className="hero min-h-[40vh] bg-gradient-to-br from-primary/10 via-transparent to-secondary/10 rounded-box mb-12">
+        <div className="hero-content text-center py-16">
+          <div className="max-w-4xl">
+            <h1 className="text-5xl font-bold mb-6 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+              {post.metadata.title}
+            </h1>
+            <p className="text-xl mb-8 text-base-content/80">
+              {post.metadata.summary}
+            </p>
+            <div className="flex flex-wrap items-center justify-center gap-4">
+              <div className="badge badge-lg badge-ghost gap-2">
+                <CalendarIcon className="h-4 w-4" />
+                {formatDate(post.metadata.publishedAt)}
+              </div>
+              <ShareButton
+                title={post.metadata.title}
+                url={`${baseUrl}/blog/${post.slug}`}
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <article className="prose prose-lg max-w-none">
         <CustomMDX source={post.content} />
       </article>
     </section>
