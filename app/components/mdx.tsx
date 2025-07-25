@@ -1,5 +1,4 @@
 import { MDXRemote } from "next-mdx-remote/rsc"
-import Image from "next/image"
 import Link from "next/link"
 import React from "react"
 import { highlight } from "sugar-high"
@@ -55,10 +54,10 @@ function CustomLink(props: CustomLinkProps) {
   return <a target="_blank" rel="noopener noreferrer" {...props} />
 }
 
-type RoundedImageProps = React.ComponentPropsWithoutRef<typeof Image>
+type RoundedImageProps = React.ComponentPropsWithoutRef<"img">
 
 function RoundedImage(props: RoundedImageProps) {
-  return <Image className="rounded-lg" {...props} />
+  return <img className="rounded-lg" {...props} />
 }
 
 type CodeProps = React.ComponentPropsWithoutRef<"code"> & {
@@ -114,7 +113,7 @@ const components = {
   h4: createHeading(4),
   h5: createHeading(5),
   h6: createHeading(6),
-  Image: RoundedImage,
+  img: RoundedImage,
   a: CustomLink,
   code: Code,
   Table,
