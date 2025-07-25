@@ -1,0 +1,260 @@
+---
+title: "画面キャプチャ API と MediaStream 収録 API を使ってみた"
+publishedAt: "2023-02-03"
+summary: "画面をキャプチャしたり、それを収録できる面白そうな API を見つけたので使ってみました。"
+---
+
+<div role="alert" className="alert alert-info alert-soft">
+  この記事は https://qiita.com/nymphaea/items/7e41c54703bb61fad72a
+  から移植しました。
+</div>
+
+画面をキャプチャしたり、それを収録できる面白そうな API を見つけたので使ってみました。
+
+https://developer.mozilla.org/ja/docs/Web/API/Screen_Capture_API
+
+https://developer.mozilla.org/ja/docs/Web/API/MediaStream_Recording_API
+
+## 作ったもの
+
+<img
+  width="500"
+  src="/images/blog/advent-calendar-2023/screen-recorder-demo.gif"
+  alt="恐竜ゲームをキャプチャしている様子"
+/>
+
+[恐竜ゲーム](chrome://dino)をキャプチャしている様子です。🦖
+GitHub Pages で公開しています。
+
+https://mikrogeophagus.github.io/screen-recorder
+
+https://github.com/mikrogeophagus/screen-recorder
+
+## Screen Capture API でキャプチャする
+
+https://developer.mozilla.org/ja/docs/Web/API/Screen_Capture_API
+
+### キャプチャを開始する
+
+[`MediaDevices.getDisplayMedia()`](https://developer.mozilla.org/ja/docs/Web/API/MediaDevices/getDisplayMedia) を使って画面をキャプチャできます。
+このメソッドを実行すると、キャプチャしたいタブやウィンドウを選択するポップアップが表示されます。
+
+<img
+  width="500"
+  src="/images/blog/advent-calendar-2023/capture-popup.png"
+  alt="キャプチャ対象選択ポップアップ"
+/>
+
+<div role="alert" className="alert alert-warning alert-soft">
+  キャプチャできないときは、ブラウザに画面収録を許可しているか確認してみてください。
+  https://support.apple.com/ja-jp/guide/mac-help/mchld6aa7d23/mac
+</div>
+
+オプションの引数では、キャプチャする動画や音声などの詳細な設定ができます。
+https://www.w3.org/TR/screen-capture/#constrainable-properties
+
+```js
+const stream = await navigator.mediaDevices.getDisplayMedia({
+  video: {
+    // 解像度
+    width: 1920,
+    height: 1080,
+
+    // フレームレート
+    frameRate: 60,
+  },
+
+  // 音声なし
+  audio: false,
+})
+```
+
+戻り値として [`MediaStream`](https://developer.mozilla.org/ja/docs/Web/API/MediaStream) で解決する `Promise` を返します。
+`MediaStream` は、キャプチャされた動画や音声のトラック ([`MediaStreamTrack`](https://developer.mozilla.org/ja/docs/Web/API/MediaStreamTrack)) を含んだオブジェクトです。
+
+この `MediaStream` は、そのまま [`HTMLMediaElement.srcObject`](https://developer.mozilla.org/ja/docs/Web/API/HTMLMediaElement/srcObject) に設定して `<video>` で再生したり、後述の MediaStream Recording API を使って収録したり、などなどできます。
+
+### キャプチャを終了する
+
+ストリームのすべてのトラックを停止します。
+
+1. [`MediaStream.getTracks()`](https://developer.mozilla.org/ja/docs/Web/API/MediaStream/getTracks) でストリームのすべてのトラックを取得します。
+2. [`MediaStreamTrack.stop()`](https://developer.mozilla.org/ja/docs/Web/API/MediaStreamTrack/stop) でトラックを停止します。
+
+```js
+const tracks = stream.getTracks()
+
+tracks.forEach((track) => {
+  track.stop()
+})
+```
+
+<div role="alert" className="alert alert-info alert-soft">
+`MediaStreamTrack` の [`ended`](https://developer.mozilla.org/ja/docs/Web/API/MediaStreamTrack/ended_event) イベントを使用すると、ブラウザの「共有を停止」を押したり、タブやウィンドウを閉じたりして画面共有が停止されたことを検知できます。
+`MediaStreamTrack.stop()` でトラックを停止した場合は `ended` イベントは発生しません。
+
+![共有停止ボタン](/images/blog/advent-calendar-2023/stop-sharing.png)
+
+```js
+const [track] = stream.getTracks()
+
+track.addEventListener("ended", () => {
+  console.log("キャプチャが停止されました。")
+})
+```
+
+</div>
+
+## MediaStream Recording API で収録する
+
+https://developer.mozilla.org/ja/docs/Web/API/MediaStream_Recording_API
+
+#### レコーダーを作成する
+
+まず [`MediaStream`](https://developer.mozilla.org/ja/docs/Web/API/MediaRecorder) を収録するための `MediaRecorder` を作成します。
+
+[`MediaRecorder()`](https://developer.mozilla.org/ja/docs/Web/API/MediaRecorder/MediaRecorder) の第 1 引数には、収録したい `MediaStream` を渡します。
+オプションの第 2 引数では、MIME タイプやビットレートの設定ができます。
+
+```js
+const recorder = new MediaRecorder(stream, { mimeType: "video/webm" })
+```
+
+#### 収録を開始する
+
+[`MediaRecorder.start()`](https://developer.mozilla.org/ja/docs/Web/API/MediaRecorder/start) で収録を開始します。
+オプションの引数には、一度に収録する長さをミリ秒で指定できます。
+例えば `start(1000)` と指定した場合は 1 秒ごとに分割して収録できます。
+
+このメソッドを実行すると `start` イベントが発生します。
+また、オプションの引数を渡した場合は、指定したミリ秒ごとに `dataavailable` イベントが発生します。
+
+```js
+// 1000 ミリ秒ごとに Blob に収録する
+recorder.start(1000)
+```
+
+#### 収録を停止する
+
+[`MediaRecorder.stop()`](https://developer.mozilla.org/ja/docs/Web/API/MediaRecorder/stop) で収録を停止します。
+このメソッドを実行すると `stop` イベントが発生します。
+
+```js
+recorder.stop()
+```
+
+また、収録中にキャプチャ（ストリーム）が終了した場合は、自動的に収録が停止されます。
+
+#### 収録を一時停止する
+
+[`MediaRecorder.pause()`](https://developer.mozilla.org/ja/docs/Web/API/MediaRecorder/pause) で収録を一時停止します。
+このメソッドを実行すると `pause` イベントが発生します。
+
+```js
+recorder.pause()
+```
+
+#### 収録を再開する
+
+[`MediaRecorder.resume()`](https://developer.mozilla.org/ja/docs/Web/API/MediaRecorder/resume) で収録を再開します。
+このメソッドを実行すると `pause` イベントが発生します。
+
+```js
+recorder.pause()
+```
+
+#### 収録したデータを使用する
+
+`dataavailable` のイベントハンドラーの引数には `BlobEvent` が渡されます。
+この [`BlobEvent.data`](`https://developer.mozilla.org/ja/docs/Web/API/BlobEvent/data`) に収録されたデータを含む `Blob` が入っています。
+
+```js
+recorder.addEventListener("dataavailable", (event) => {
+  const blob = event.data
+})
+```
+
+- `MediaRecorder.start()` に引数を指定しない場合は、`dataavailable` イベントは収録停止時に 1 度だけ発生します。
+- `MediaRecorder.start()` に引数を指定した場合は、`dataavailable` イベントは指定したミリ数ごとに発生します。
+
+<div role="alert" className="alert alert-info alert-soft">
+[`MediaRecorder.requestData()`](https://developer.mozilla.org/ja/docs/Web/API/MediaRecorder/requestData) を実行すると、収録中または一時停止中の任意のタイミングで `dataavailable` イベントを発生させることができます。
+このメソッドを実行しても収録は停止されませんが、これ以降に収録したデータは新しい `Blob` に格納されます。
+
+```js
+recorder.requestData()
+```
+
+</div>
+
+---
+
+```js
+;(async () => {
+  // 収録された細切れのデータをあつめる
+  let chunks = []
+
+  // 動画と音声をキャプチャする
+  const stream = await navigator.mediaDevices.getDisplayMedia({
+    video: true,
+    audio: true,
+  })
+
+  // キャプチャした動画と音声を　WebM 形式で収録する
+  const recorder = new MediaRecorder(stream, { mimeType: "video/webm" })
+
+  // 収録を開始する
+  recorder.start(1000)
+
+  // 10 秒後に収録を停止する
+  setTimeout(() => recorder.stop(), 10000)
+
+  // start() に指定した 1 秒ごとに dataavailable イベントが発生する
+  recorder.addEventListener("dataavailable", (event) => {
+    // 収録された細切れのデータをあつめる
+    chunks.push(event.data)
+  })
+
+  // 収録停止時に stop イベントが発生する
+  recorder.addEventListener("stop", () => {
+    // Blob の配列から 1 つの File を作る
+    // これをダウンロードしたり、サーバーに送信したりして使えます
+    const file = new File(chunks, "screen-recording.webm", {
+      type: "video/webm",
+    })
+    console.log(file)
+  })
+})()
+```
+
+## 関連している API / 組み合わせて使うと面白そうな API
+
+### MediaDevices.getUserMedia()
+
+こちらはカメラやマイクからの入力を `MediaStream` として取得できます。
+`MediaDevices.getDisplayMedia()` と使い方も似ています。
+
+https://developer.mozilla.org/ja/docs/Web/API/MediaDevices/getUserMedia
+
+### HTMLCanvasElement.captureStream()
+
+`<canvas>` の描画内容を `MediaStream` として取得できます。
+WebSocket などと組み合わせて[おえかきの森](https://oekaki.hange.jp/)みたいなアプリも作れそうです。
+
+https://developer.mozilla.org/ja/docs/Web/API/HTMLCanvasElement/captureStream
+
+### WebRTC API
+
+動画や音声、テキストなどのデータを P2P で送受信できます。
+`MediaStream` を使って相手に画面を共有したり、ビデオ通話したりできます。
+
+https://developer.mozilla.org/ja/docs/Web/API/WebRTC_API
+
+### IndexedDB API
+
+クライアントサイドの Key-Value データベースです。
+大容量でさまざまな型のデータを保存することができます。
+
+収録した動画をブラウザに保存しておきたいときなどに使えます。
+
+https://developer.mozilla.org/ja/docs/Web/API/IndexedDB_API

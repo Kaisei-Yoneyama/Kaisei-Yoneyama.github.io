@@ -1,0 +1,211 @@
+---
+title: "N予備校の授業をコメントと一緒にピクチャー イン ピクチャーで見たい！"
+publishedAt: "2023-12-24"
+summary: "N予備校の授業をコメント付きでピクチャー イン ピクチャーで視聴できる拡張機能を作ってみました。"
+---
+
+# N予備校の授業をコメントと一緒にピクチャー イン ピクチャーで見たい！
+
+<div role="alert" className="alert alert-info alert-soft">
+  この記事は https://qiita.com/nymphaea/items/0e72c040375be51c564e
+  から移植しました。
+</div>
+
+ニコニコ動画やニコニコ生放送で実装されている、コメントも表示されるピクチャー イン ピクチャー (PiP) 機能をN予備校で再現してみました。
+
+![N予備校のコメント付きピクチャー イン ピクチャー](/images/blog/advent-calendar-2024/official-comment.png)
+
+## やりたいこと
+
+1. N予備校の授業を PiP で表示したい
+2. 流れるコメントも表示したい
+
+## どうやって作る？
+
+### 1. PiP 機能
+
+PiP 機能は [`HTMLVideoElement`](https://developer.mozilla.org/ja/docs/Web/API/HTMLVideoElement) に専用のメソッドが用意されていて、[`requestPictureInPicture()`](https://developer.mozilla.org/ja/docs/Web/API/HTMLVideoElement/requestPictureInPicture) を呼び出すだけです！
+
+```js:コンテンツスクリプト
+const video = document.querySelector('video');
+video.requestPictureInPicture();
+```
+
+### 2. コメント表示機能
+
+N予備校の流れるコメントは動画自体に含まれているわけではなく、キャンバスにコメントを描画して、そのキャンバスを動画に重ねて表示しているようです。そのため、動画を PiP してもコメントは表示されません。
+
+現状 PiP に対応しているのは `HTMLVideoElement` だけ [^video-restrictions] のようなので、動画とコメントを合成した新しい動画を作る必要がありました。
+
+[^video-restrictions]:
+    詳しくは下記のリンク先を参照してください。
+    https://github.com/w3c/picture-in-picture/blob/main/explainer.md#video-restrictions
+
+<div role="alert" className="alert alert-info alert-soft">
+  実は [Document Picture-in-Picture
+  API](https://developer.mozilla.org/en-US/docs/Web/API/Document_Picture-in-Picture_API)
+  という実験的な機能があるらしく、`HTMLVideoElement` 以外の要素も PiP
+  で表示できます。これを使うと動画プレイヤーごと PiP
+  で表示できるので、動画とコメントを合成する必要はなくなります。
+</div>
+
+#### どうやって動画とコメントを合成する？
+
+1. 動画とコメントの [`MediaStreamTrack`](https://developer.mozilla.org/ja/docs/Web/API/MediaStreamTrack) から、ひとつの [`MediaStream`](https://developer.mozilla.org/ja/docs/Web/API/MediaStream) を作る方法
+2. 合成用のキャンバスを用意して、それに動画とコメントを重ねて描画する方法
+
+---
+
+`MediaStream` は 2022 年のアドベントカレンダーでも載せていました。  
+もし `MediaStream` に興味があればこちらも読んでいただけると嬉しいです。
+
+https://qiita.com/nymphaea/items/7e41c54703bb61fad72a
+
+#### 1. 動画とコメントの `MediaStreamTrack` から、ひとつの `MediaStream` を作る方法
+
+この方法で動画とコメントを合成した動画を作ることはできませんでした。これができたら楽でしたが、どちらか片方の映像しか表示されませんでした。
+
+```js:コンテンツスクリプト
+// 動画とコメントの MediaStreamTrack を合成した MediaStream を作成
+const mergedStream = new MediaStream([
+  ...document.querySelector('video').captureStream().getTracks(),
+  ...document.querySelector('canvas').captureStream().getTracks()
+]);
+
+// 合成動画再生用の動画要素を用意
+const mergedVideo = document.createElement('video');
+document.body.prepend(mergedVideo);
+mergedVideo.muted = true;
+mergedVideo.autoplay = true;
+mergedVideo.style.width = '0';
+mergedVideo.style.height = '0';
+mergedVideo.style.visibility = 'hidden';
+
+// 合成した MediaStream を設定
+mergedVideo.srcObject = mergedStream;
+
+// 合成した動画を PiP 再生
+mergedVideo.onloadeddata = () => mergedVideo.requestPictureInPicture();
+```
+
+#### 2. 合成用のキャンバスを用意して、それに動画とコメントを重ねて描画する方法
+
+合成用のキャンバスを用意して、それに動画とコメントをレイヤーのように重ねて描画します。この合成処理を `requestAnimationFrame()` で繰り返すことで、動画とコメントを合成したアニメーションを作成できます。そして、このキャンバスの `MediaStream` を取得して使用します。
+
+```js:コンテンツスクリプト
+// 動画とコメントの要素を取得
+const video = document.querySelector('video');
+const canvas = document.querySelector('canvas');
+const width = canvas.width;
+const height = canvas.height;
+
+// 合成用のキャンバス要素を用意
+const compositeCanvas = document.createElement('canvas');
+document.body.prepend(compositeCanvas);
+compositeCanvas.width = width;
+compositeCanvas.height = height;
+compositeCanvas.style.width = '0';
+compositeCanvas.style.height = '0';
+compositeCanvas.style.visibility = 'hidden';
+
+const context = compositeCanvas.getContext('2d');
+
+function animate() {
+  context.clearRect(0, 0, width, height);
+
+  // 動画とコメントを合成用のキャンバスに描画
+  context.drawImage(video, 0, 0, width, height);
+  context.drawImage(canvas, 0, 0, width, height);
+
+  // アニメーション
+  requestAnimationFrame(animate);
+}
+
+requestAnimationFrame(animate);
+
+// 合成動画再生用の動画要素を用意
+const compositeVideo = document.createElement('video');
+document.body.prepend(compositeVideo);
+compositeVideo.muted = true;
+compositeVideo.autoplay = true;
+compositeVideo.style.width = '0';
+compositeVideo.style.height = '0';
+compositeVideo.style.visibility = 'hidden';
+
+// 合成用のキャンバスの MediaStream を設定
+compositeVideo.srcObject = compositeCanvas.captureStream();
+
+// 合成した動画を PiP 再生
+compositeVideo.onloadeddata = () => compositeVideo.requestPictureInPicture();
+```
+
+これで動画とコメントを合成した新しい動画を作成して PiP で表示することができました！🎉
+
+## まだうまく動かない
+
+コメントと一緒に PiP で表示することはできましたが、タブがバックグラウンドになるとコメントが表示されなくなることに気づきました。これでは普通の PiP と同じです😢
+
+### タブがバックグラウンドになるとコメントが表示されない理由
+
+おそらくN予備校のコメントの描画処理は `requestAnimationFrame()` で繰り返し行われていて、このメソッドの仕様でタブがバックグラウンドになると止まってしまうのかなと思いました。これは `requestAnimationFrame()` のメリットのひとつだと思いますが、今回はむしろバックグラウンドで描画されてほしいので困りました。
+
+バックグラウンドでもコメントが表示されるようにする方法を考えてみます。
+
+#### `setTimeout()` や `setInterval()` を使ってみる
+
+仕方ないので `requestAnimationFrame()` を上書きして、タブがバックグラウンドのときは `setTimeout()` を呼び出すようにしてみます。`time` や `fakeRequestId` は `requestAnimationFrame()` を摸倣するために用意してみました。
+
+```js:ページスクリプト
+const originalRequestAnimationFrame = requestAnimationFrame;
+
+requestAnimationFrame = function (callback) {
+  if (document.visibilityState === 'visible') {
+    // タブがフォアグラウンドのときは requestAnimationFrame() を呼び出す
+    const requestId = originalRequestAnimationFrame(callback);
+    return requestId;
+  }
+
+  const frameRate = 30;
+  const delay = 1000 / frameRate;
+  const time = performance.now();
+
+  // タブがバックグラウンドのときは setTimeout() を呼び出す
+  const fakeRequestId = setTimeout(callback, delay, time);
+  return fakeRequestId;
+};
+```
+
+これでバックグラウンドでもコメントが表示されるようになったと思いましたが、動画をミュートした状態でタブがバックグラウンドになってしばらくするとコメントの描画が止まってしまいました。調べてみると、これはブラウザが `setTimeout()` や `setInterval()` の呼び出しを制限するためのようです。
+
+- [Chrome: timeouts/interval suspended in background tabs?](https://stackoverflow.com/questions/6032429/chrome-timeouts-interval-suspended-in-background-tabs)
+- [Heavy throttling of chained JS timers beginning in Chrome 88](https://developer.chrome.com/blog/timer-throttling-in-chrome-88/)
+- [Tab throttling and more performance improvements in Chrome M87](https://blog.chromium.org/2020/11/tab-throttling-and-more-performance.html)
+
+音を出していれば `setTimeout()` は動き続けますが、ミュートした状態で PiP で見たいこともあると思います。なので他の方法も考えてみます。
+
+#### `requestVideoFrameCallback()` を使ってみる
+
+タイマーが使えないので、`HTMLVideoElement` の [`requestVideoFrameCallback()`](https://wicg.github.io/video-rvfc/) を使ってみます。これは `requestAnimationFrame()` と似ていますが、動画のフレームごとに呼び出されるので、タイマーを使わなくても描画処理をすることができそうです。
+
+```js:ページスクリプト
+const video = document.querySelector('video');
+const originalRequestAnimationFrame = requestAnimationFrame;
+
+requestAnimationFrame = function (callback) {
+  if (document.visibilityState === 'visible') {
+    // タブがフォアグラウンドのときは requestAnimationFrame() を呼び出す
+    const requestId = originalRequestAnimationFrame(callback);
+    return requestId;
+  }
+
+  // タブがバックグラウンドのときは requestVideoFrameCallback() を呼び出す
+  const fakeRequestId = video.requestVideoFrameCallback(callback);
+  return fakeRequestId;
+};
+```
+
+これでタブがバックグラウンドになってもコメントが表示されるようになりました！🙌🙌
+
+## Chrome の拡張機能として使えるようにした
+
+便利に使えるように、Chrome の拡張機能として作りました。運営コメントも表示できるようにしたり、PiP モードを切り替えるボタンを追加したり、PiP モードのコメントの表示・非表示を切り替えられる機能も作ってみました。
