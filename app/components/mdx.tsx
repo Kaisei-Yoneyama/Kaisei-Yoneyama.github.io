@@ -4,7 +4,14 @@ import Link from "next/link"
 import React from "react"
 import { highlight } from "sugar-high"
 
-function Table({ data }) {
+type TableProps = {
+  data: {
+    headers: string[]
+    rows: string[][]
+  }
+}
+
+function Table({ data }: TableProps) {
   const headers = data.headers.map((header, index) => (
     <th key={index}>{header}</th>
   ))
@@ -28,10 +35,12 @@ function Table({ data }) {
   )
 }
 
-function CustomLink(props) {
+type CustomLinkProps = React.ComponentPropsWithoutRef<"a">
+
+function CustomLink(props: CustomLinkProps) {
   const href = props.href
 
-  if (href.startsWith("/")) {
+  if (href?.startsWith("/")) {
     return (
       <Link href={href} {...props}>
         {props.children}
@@ -39,23 +48,29 @@ function CustomLink(props) {
     )
   }
 
-  if (href.startsWith("#")) {
+  if (href?.startsWith("#")) {
     return <a {...props} />
   }
 
   return <a target="_blank" rel="noopener noreferrer" {...props} />
 }
 
-function RoundedImage(props) {
-  return <Image alt={props.alt} className="rounded-lg" {...props} />
+type RoundedImageProps = React.ComponentPropsWithoutRef<typeof Image>
+
+function RoundedImage(props: RoundedImageProps) {
+  return <Image className="rounded-lg" {...props} />
 }
 
-function Code({ children, ...props }) {
+type CodeProps = React.ComponentPropsWithoutRef<"code"> & {
+  children: string
+}
+
+function Code({ children, ...props }: CodeProps) {
   const codeHTML = highlight(children)
   return <code dangerouslySetInnerHTML={{ __html: codeHTML }} {...props} />
 }
 
-function slugify(str) {
+function slugify(str: string) {
   return str
     .toString()
     .toLowerCase()
@@ -66,8 +81,12 @@ function slugify(str) {
     .replace(/\-\-+/g, "-") // Replace multiple - with single -
 }
 
-function createHeading(level) {
-  const Heading = ({ children }) => {
+type HeadingProps = {
+  children: string
+}
+
+function createHeading(level: number) {
+  const Heading = ({ children }: HeadingProps) => {
     const slug = slugify(children)
     return React.createElement(
       `h${level}`,
@@ -101,7 +120,9 @@ const components = {
   Table,
 }
 
-export function CustomMDX(props) {
+type CustomMDXProps = React.ComponentProps<typeof MDXRemote>
+
+export function CustomMDX(props: CustomMDXProps) {
   return (
     <MDXRemote
       {...props}
