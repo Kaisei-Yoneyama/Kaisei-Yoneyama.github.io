@@ -5,6 +5,7 @@ import {
 } from "@heroicons/react/24/outline"
 import { CustomMDX } from "app/components/mdx"
 import { ShareButton } from "app/components/share-button"
+import { getDateOnly, getRelativeDateTime } from "app/lib/dayjs"
 import { baseUrl } from "app/sitemap"
 import Link from "next/link"
 import { notFound } from "next/navigation"
@@ -127,16 +128,14 @@ export default async function ProjectPage({
         </p>
 
         <div className="flex flex-wrap items-center gap-4 mb-8">
-          <div className="badge badge-lg badge-ghost gap-2">
-            <CalendarIcon className="h-4 w-4" />
-            {new Date(project.metadata.publishedAt).toLocaleDateString(
-              "ja-JP",
-              {
-                year: "numeric",
-                month: "long",
-                day: "numeric",
-              },
-            )}
+          <div
+            className="tooltip tooltip-bottom"
+            data-tip={getDateOnly(project.metadata.publishedAt)}
+          >
+            <div className="badge badge-lg badge-ghost gap-2">
+              <CalendarIcon className="h-4 w-4" />
+              {getRelativeDateTime(project.metadata.publishedAt)}
+            </div>
           </div>
           <ShareButton
             title={project.metadata.title}

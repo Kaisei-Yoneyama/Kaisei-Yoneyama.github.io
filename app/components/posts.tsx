@@ -1,5 +1,6 @@
 import { ArrowRightIcon, CalendarIcon } from "@heroicons/react/24/outline"
-import { formatDate, getBlogPosts } from "app/blog/utils"
+import { getBlogPosts } from "app/blog/utils"
+import { getDateOnly, getRelativeDateTime } from "app/lib/dayjs"
 import Link from "next/link"
 
 export function BlogPosts() {
@@ -31,11 +32,16 @@ export function BlogPosts() {
             <h2 className="card-title">{post.metadata.title}</h2>
             <p className="opacity-70 line-clamp-2">{post.metadata.summary}</p>
             <div className="card-actions justify-between">
-              <div className="text-sm opacity-60">
-                <span className="flex items-center gap-1">
-                  <CalendarIcon className="h-4 w-4" />
-                  {formatDate(post.metadata.publishedAt, false)}
-                </span>
+              <div className="text-sm">
+                <div
+                  className="tooltip tooltip-bottom"
+                  data-tip={getDateOnly(post.metadata.publishedAt)}
+                >
+                  <span className="flex items-center gap-1">
+                    <CalendarIcon className="h-4 w-4" />
+                    {getRelativeDateTime(post.metadata.publishedAt)}
+                  </span>
+                </div>
               </div>
               <Link
                 href={`/blog/${post.slug}`}

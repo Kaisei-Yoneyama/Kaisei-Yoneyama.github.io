@@ -1,7 +1,8 @@
 import { CalendarIcon } from "@heroicons/react/24/outline"
-import { formatDate, getBlogPosts } from "app/blog/utils"
+import { getBlogPosts } from "app/blog/utils"
 import { CustomMDX } from "app/components/mdx"
 import { ShareButton } from "app/components/share-button"
+import { getDateOnly, getRelativeDateTime } from "app/lib/dayjs"
 import { baseUrl } from "app/sitemap"
 import Link from "next/link"
 import { notFound } from "next/navigation"
@@ -118,9 +119,14 @@ export default async function Blog({
               {post.metadata.summary}
             </p>
             <div className="flex flex-wrap items-center justify-center gap-4">
-              <div className="badge badge-lg badge-ghost gap-2">
-                <CalendarIcon className="h-4 w-4" />
-                {formatDate(post.metadata.publishedAt)}
+              <div
+                className="tooltip tooltip-bottom"
+                data-tip={getDateOnly(post.metadata.publishedAt)}
+              >
+                <div className="badge badge-lg badge-ghost gap-2">
+                  <CalendarIcon className="h-4 w-4" />
+                  {getRelativeDateTime(post.metadata.publishedAt)}
+                </div>
               </div>
               <ShareButton
                 title={post.metadata.title}
