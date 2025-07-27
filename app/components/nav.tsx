@@ -86,7 +86,7 @@ export function Navbar() {
       <div className="navbar-end">
         <div className="dropdown dropdown-end">
           <div tabIndex={0} role="button" className="btn btn-ghost btn-circle">
-            {theme === "light" ? (
+            {theme === "cupcake" ? (
               <SunIcon className="h-5 w-5" />
             ) : theme === "dark" ? (
               <MoonIcon className="h-5 w-5" />
@@ -100,8 +100,8 @@ export function Navbar() {
           >
             <li>
               <button
-                onClick={() => changeTheme("light")}
-                className={clsx(theme === "light" && "active")}
+                onClick={() => changeTheme("cupcake")}
+                className={clsx(theme === "cupcake" && "active")}
               >
                 <SunIcon className="h-4 w-4" />
                 ライト

@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react"
 
-export type Theme = "light" | "dark" | "system"
+export type Theme = "cupcake" | "dark" | "system"
 
 export function useTheme() {
   const [theme, setTheme] = useState<Theme>("system")
