@@ -1,7 +1,7 @@
 import { getBlogPosts } from "app/blog/utils"
 import { getProjects } from "app/portfolio/utils"
 
-export const baseUrl = "https://Kaisei-Yoneyama.github.io"
+export const baseUrl = "https://kaisei-yoneyama.dev"
 export const dynamic = "force-static"
 
 export default async function sitemap() {
