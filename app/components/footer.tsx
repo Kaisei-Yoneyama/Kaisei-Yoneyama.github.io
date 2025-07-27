@@ -35,11 +35,10 @@ export default function Footer() {
             </svg>
           </a>
           <a
-            href="https://twitter.com/kaisei_yoneyama"
-            target="_blank"
-            rel="noopener noreferrer"
+            role="link"
+            aria-disabled="true"
             title="X (Twitter)"
-            className="hover:opacity-70 transition-opacity flex items-center justify-center"
+            className="opacity-50 cursor-not-allowed flex items-center justify-center"
           >
             <svg
               aria-label="X logo"
