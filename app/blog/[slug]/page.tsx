@@ -100,10 +100,10 @@ export default async function Blog({
       <div className="breadcrumbs text-sm mb-8">
         <ul>
           <li>
-            <Link href="/">Home</Link>
+            <Link href="/">ホーム</Link>
           </li>
           <li>
-            <Link href="/blog">Blog</Link>
+            <Link href="/blog">ブログ</Link>
           </li>
           <li>{post.metadata.title}</li>
         </ul>

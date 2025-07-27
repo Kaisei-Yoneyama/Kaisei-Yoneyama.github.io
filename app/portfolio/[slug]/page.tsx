@@ -98,10 +98,10 @@ export default async function ProjectPage({
       <div className="breadcrumbs text-sm mb-8">
         <ul>
           <li>
-            <Link href="/">Home</Link>
+            <Link href="/">ホーム</Link>
           </li>
           <li>
-            <Link href="/portfolio">Portfolio</Link>
+            <Link href="/portfolio">ポートフォリオ</Link>
           </li>
           <li>{project.metadata.title}</li>
         </ul>
