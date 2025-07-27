@@ -14,7 +14,7 @@ export function BlogPosts() {
 
   return (
     <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-1">
-      {sortedBlogs.map((post, index) => (
+      {sortedBlogs.map((post) => (
         <div
           key={post.slug}
           className="card lg:card-side bg-base-100 shadow-xl"

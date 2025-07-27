@@ -57,7 +57,7 @@ function CustomLink(props: CustomLinkProps) {
 type RoundedImageProps = React.ComponentPropsWithoutRef<"img">
 
 function RoundedImage(props: RoundedImageProps) {
-  return <img className="rounded-lg" {...props} />
+  return <img className="rounded-lg" alt={props.alt} {...props} />
 }
 
 type CodeProps = React.ComponentPropsWithoutRef<"code"> & {

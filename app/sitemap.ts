@@ -12,7 +12,7 @@ export default async function sitemap() {
 
   const projects = getProjects().map((project) => ({
     url: `${baseUrl}/portfolio/${project.slug}`,
-    lastModified: project.metadata.publishedAt,
+    lastModified: project.metadata.releasedAt,
   }))
 
   const routes = ["", "/blog", "/portfolio"].map((route) => ({
