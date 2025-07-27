@@ -3,7 +3,7 @@ import path from "path"
 
 export type Metadata = {
   title: string
-  publishedAt: string
+  releasedAt: string
   summary: string
   thumbnail: string
   technologies: string[]
@@ -72,8 +72,8 @@ export function getProjects() {
   return getMDXData(
     path.join(process.cwd(), "app", "portfolio", "projects"),
   ).sort((a, b) => {
-    const dateA = new Date(a.metadata.publishedAt)
-    const dateB = new Date(b.metadata.publishedAt)
+    const dateA = new Date(a.metadata.releasedAt)
+    const dateB = new Date(b.metadata.releasedAt)
     return dateB.getTime() - dateA.getTime()
   })
 }

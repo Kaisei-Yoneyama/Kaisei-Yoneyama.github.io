@@ -32,7 +32,7 @@ export async function generateMetadata({
 
   const {
     title,
-    publishedAt: publishedTime,
+    releasedAt: publishedTime,
     summary: description,
     thumbnail: image,
   } = project.metadata
@@ -83,7 +83,7 @@ export default async function ProjectPage({
             "@context": "https://schema.org",
             "@type": "SoftwareApplication",
             name: project.metadata.title,
-            datePublished: project.metadata.publishedAt,
+            datePublished: project.metadata.releasedAt,
             description: project.metadata.summary,
             image: `${baseUrl}${project.metadata.thumbnail}`,
             url: `${baseUrl}/portfolio/${project.slug}`,
@@ -130,11 +130,11 @@ export default async function ProjectPage({
         <div className="flex flex-wrap items-center gap-4 mb-8">
           <div
             className="tooltip tooltip-bottom"
-            data-tip={getDateOnly(project.metadata.publishedAt)}
+            data-tip={getDateOnly(project.metadata.releasedAt)}
           >
             <div className="badge badge-lg badge-ghost gap-2">
               <CalendarIcon className="h-4 w-4" />
-              {getRelativeDateTime(project.metadata.publishedAt)}
+              {getRelativeDateTime(project.metadata.releasedAt)}
             </div>
           </div>
           <ShareButton
