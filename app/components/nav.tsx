@@ -4,9 +4,9 @@ import {
   Bars3Icon,
   ComputerDesktopIcon,
   DocumentTextIcon,
+  FolderIcon,
   HomeIcon,
   MoonIcon,
-  RocketLaunchIcon,
   SunIcon,
 } from "@heroicons/react/24/outline"
 import { clsx } from "clsx"
@@ -28,9 +28,9 @@ const navItems: Record<string, NavItem> = {
     name: "ブログ",
     icon: DocumentTextIcon,
   },
-  "https://github.com/Kaisei-Yoneyama": {
-    name: "GitHub",
-    icon: RocketLaunchIcon,
+  "/portfolio": {
+    name: "ポートフォリオ",
+    icon: FolderIcon,
   },
 }
 
@@ -50,7 +50,8 @@ export function Navbar() {
             className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
           >
             {Object.entries(navItems).map(([path, { name, icon: Icon }]) => {
-              const isActive = pathname === path
+              const isActive =
+                path === "/" ? pathname === path : pathname.startsWith(path)
               return (
                 <li key={path}>
                   <Link href={path} className={clsx(isActive && "active")}>
@@ -69,7 +70,8 @@ export function Navbar() {
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1">
           {Object.entries(navItems).map(([path, { name, icon: Icon }]) => {
-            const isActive = pathname === path
+            const isActive =
+              path === "/" ? pathname === path : pathname.startsWith(path)
             return (
               <li key={path}>
                 <Link href={path} className={clsx(isActive && "active")}>

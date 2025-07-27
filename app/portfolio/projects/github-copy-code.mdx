@@ -1,0 +1,68 @@
+---
+title: "GitHub Copy Code"
+publishedAt: "2024-04-06"
+summary: "GitHub の差分ページからコードを任意のマークアップ形式でコピーできるブラウザー拡張機能です。WXT フレームワークのキャッチアップを兼ねて作りました。"
+thumbnail: "/images/portfolio/github-copy-code.png"
+# prettier-ignore
+technologies: ["React 19", "TypeScript 5.0", "WXT", "jsdiff", "Mustache", "Primer", "extension API (Manifest V3)", "Clipboard API", "IndexedDB API", "Web Components", "GitHub Actions", "Bootstrap 5", "ESLint", "Prettier"]
+repositoryUrl: "https://github.com/Kaisei-Yoneyama/github-copy-code"
+---
+
+GitHub の差分ページからコードを任意のマークアップ形式でコピーできるブラウザー拡張機能です。  
+教材制作における作業効率化のために作成しました。
+
+Octokit などで GitHub の REST API を叩いているわけではないため、トークンの設定などは不要です。差分の情報は単純に以下のページをフェッチして取得しています。
+
+- `/{owner}/{repo}/commit/{commit_sha}.diff`
+- `/{owner}/{repo}/pull/{pull_number}.diff`
+- `/{owner}/{repo}/pull/{pull_number}/commits/{commit_sha}.diff`
+
+<details>
+<summary>使用例</summary>
+
+[`8a0f895`](https://github.com/Kaisei-Yoneyama/github-copy-code/commit/8a0f8953e83b65b7954d3ac4fdb483b3ba5f8735) の差分をコピーした例です。  
+このコミットの差分は小さいのですが、以下のように任意のマークアップ形式でコピーできます。
+
+````md
+<!-- Sample template -->
+
+```diff-yml filePath=.github/workflows/deploy.yml newStart=44 oldStart=44
+       - name: Use Node.js
+         uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+         with:
+-          node-version: 20
++          node-version: 22
+           cache: "npm"
+       - name: Install dependencies
+         run: npm ci
+```
+````
+
+</details>
+
+## 制作背景
+
+プログラミング教材では、1 ページに 20-30 個のコードブロックを扱うことも多く、従来は `diff` コマンドで差分を取得してから手作業でマークアップしていました。
+
+しかし、コードブロックが多いため作業効率が悪く、GitHub のコミット差分を直接教材用のマークアップ形式でコピーできれば効率化できると考え、最初は Vanilla JS で素朴に実装していました。
+
+その拡張機能でも事足りていましたが、自分以外にも需要があるのではないかと考え、興味のあった WXT フレームワークのキャッチアップも兼ねて作り直しました。
+
+WXT の採用により、TypeScript と React の恩恵を受けながら、SPA のページ遷移検知や要素の出現待機などの拡張機能開発における痒いところに手が届く実装も簡単にできました。
+
+## 主な機能
+
+Mustache テンプレートエンジンを採用しているため、ユーザーが自由にマークアップ形式をカスタマイズできます。テンプレートはいくつでも作成可能です。また、テンプレートを共有できるようにインポート/エクスポート機能も実装しました。
+
+拡張機能が挿入する UI には GitHub のデザインシステム [Primer](https://primer.style/) を採用して、GitHub の UI に馴染むようにしました。
+
+また、GitHub Actions を活用して、拡張機能のビルドや Chrome ウェブストアへのデプロイを自動化しました。
+
+## 課題
+
+Playwright を用いたテストを実装したいと考えています。
+
+現在は拡張機能の使用方法に関するドキュメントが不十分です。  
+より簡単に使い始められるようにドキュメントを整備する必要があります。
+
+また、実装を簡略化するためにポップアップの UI には Primer ではなく Bootstrap を使用しているため、UI の統一感が損なわれており、バンドルサイズも大きくなっていることが課題です。

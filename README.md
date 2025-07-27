@@ -12,6 +12,7 @@ Next.js の SSG で構築して GitHub Pages にデプロイする。
 ## 機能
 
 - ブログ: MDX 対応
+- ポートフォリオ: MDX 対応
 - SEO: サイトマップ生成/JSON-LD 構造化データ生成/`robots.txt`
 
 ## 開発

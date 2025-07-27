@@ -1,4 +1,7 @@
+import { ArrowRightIcon } from "@heroicons/react/24/outline"
 import { BlogPosts } from "app/components/posts"
+import { Projects } from "app/components/projects"
+import Link from "next/link"
 
 export default function Page() {
   return (
@@ -15,7 +18,19 @@ export default function Page() {
         </div>
       </div>
 
-      <div className="divider">最近の投稿</div>
+      <div className="divider">ポートフォリオ</div>
+
+      <div className="my-8">
+        <Projects limit={2} />
+        <div className="text-center mt-6">
+          <Link href="/portfolio" className="btn btn-primary btn-outline">
+            他の作品も見る
+            <ArrowRightIcon className="h-4 w-4" />
+          </Link>
+        </div>
+      </div>
+
+      <div className="divider">ブログ</div>
 
       <div className="my-8">
         <BlogPosts />

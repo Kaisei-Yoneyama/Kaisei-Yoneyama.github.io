@@ -1,0 +1,33 @@
+---
+title: "N-Yobiko PiP Extension"
+publishedAt: "2023-12-17"
+summary: "ZEN Study の授業をピクチャー イン ピクチャーで視聴できる拡張機能です。流れるコメントや運営コメントも表示されます。"
+thumbnail: "/images/portfolio/n-yobiko-pip-extension.png"
+# prettier-ignore
+technologies: ["extension API (Manifest V3)", "Picture-in-Picture API", "Canvas API", "Vanilla JS"]
+repositoryUrl: "https://github.com/mikrogeophagus/n-yobiko-pip-extension"
+demoUrl: "https://chrome.google.com/webstore/detail/nmogofkgopglmcbfbdjbhnhofdgecnef"
+---
+
+ZEN Study (旧N予備校) の授業をピクチャー イン ピクチャーで視聴できるブラウザー拡張機能です。  
+Chrome ウェブストアで限定公開しています。
+
+- [**N-Yobiko PiP Extension**](https://chrome.google.com/webstore/detail/nmogofkgopglmcbfbdjbhnhofdgecnef)
+
+## 制作背景
+
+ZEN Study のライブ/アーカイブ授業を他の作業をしながら視聴したいと思っていたのですが、通常の Picture-in-Picture 機能では動画のみが表示されるため、ZEN Study の特徴である流れるコメントや運営コメントを見ることができませんでした。
+
+そこで、Canvas API を使用して動画とコメントをリアルタイムで合成し、Picture-in-Picture API で表示する拡張機能を作成しました。
+
+## 主な機能
+
+- 授業動画とコメントを 1 つのキャンバスに合成して PiP 表示
+- 流れるコメントと運営コメントに対応
+- Vanilla JS でシンプルに実装
+
+## 関連記事
+
+N予備校プログラミングコース Advent Calendar 2023 に投稿した記事：
+
+- [**N予備校の授業をコメントと一緒にピクチャー イン ピクチャーで見たい！**](https://qiita.com/nymphaea/items/0e72c040375be51c564e)

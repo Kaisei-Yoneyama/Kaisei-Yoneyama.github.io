@@ -11,14 +11,9 @@ export default function Footer() {
         <Link href="/blog" className="link link-hover">
           ブログ
         </Link>
-        <a
-          href="https://github.com/Kaisei-Yoneyama"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="link link-hover"
-        >
-          GitHub
-        </a>
+        <Link href="/portfolio" className="link link-hover">
+          ポートフォリオ
+        </Link>
       </nav>
       <nav>
         <div className="grid grid-flow-col gap-4">
