@@ -137,7 +137,7 @@ export default async function Blog({
         </div>
       </div>
 
-      <article className="prose prose-lg max-w-none">
+      <article className="prose prose-lg max-w-none break-words">
         <CustomMDX source={post.content} />
       </article>
     </section>
