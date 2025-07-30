@@ -25,9 +25,9 @@ export default function PortfolioPage() {
       </div>
 
       <p className="text-sm text-base-content/60 mb-6">
-        とくに印象に残っているプロジェクトを載せています。
+        とくに印象に残っているプロジェクトを紹介しています。
         <br />
-        他にも Web スクレイピングやボットの開発などもしています。
+        Web スクレイピングやボットの開発なども趣味です。
       </p>
 
       <Projects />
