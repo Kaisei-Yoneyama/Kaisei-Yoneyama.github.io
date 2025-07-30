@@ -11,8 +11,8 @@ export default function Page() {
           <div className="max-w-md">
             <h1 className="text-5xl font-bold">Kaisei Yoneyama</h1>
             <p className="py-6">
-              とくに Web
-              アプリケーションや業務改善ツールの開発が好きです。プログラミング教材制作に携わっています。
+              とくに Scala, Kotlin, Rust や DDD
+              に興味があります。プログラミング教材制作に携わっています。
             </p>
           </div>
         </div>
