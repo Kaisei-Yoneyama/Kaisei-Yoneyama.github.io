@@ -57,6 +57,8 @@ export default reactRenderer(({ children, Layout, c, title, description, frontma
           borderBlockStartWidth="thin"
           borderColor="muted"
           borderStyle="solid"
+          data-pagefind-body=""
+          data-pagefind-meta="category:Blog"
         >
           <Prose html={html} enableFullWidth />
         </Box>

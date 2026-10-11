@@ -4,6 +4,8 @@
 // SSR で外部化される @primer/react-brand (UMD) は名前付きインポートできないため、名前空間インポート・名前付きエクスポートで吸収する
 import * as primerBrandNs from "@primer/react-brand";
 
+export type { SubdomainNavBarSearchResultProps } from "@primer/react-brand";
+
 const ns = primerBrandNs as typeof primerBrandNs & { default?: typeof primerBrandNs };
 const primerBrand = ns.default ?? ns;
 

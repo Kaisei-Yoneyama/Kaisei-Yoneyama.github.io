@@ -47,6 +47,9 @@ export default defineConfig(({ mode }) => {
         jsxImportSource: "react",
         providerImportSource: "/app/lib/mdx-components.tsx",
         remarkPlugins: [remarkFrontmatter, remarkMdxFrontmatter, remarkGfm],
+        remarkRehypeOptions: {
+          footnoteLabelProperties: { className: ["sr-only"], dataPagefindIgnore: "" },
+        },
         rehypePlugins: [
           [
             rehypeShiki,

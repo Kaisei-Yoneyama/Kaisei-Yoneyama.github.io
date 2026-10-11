@@ -27,13 +27,29 @@ export default reactRenderer(({ children, c, title, description, post }) => {
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>{title ? `${title} | ${SITE_NAME}` : SITE_NAME}</title>
-        {description && <meta name="description" content={description} />}
+        {description && (
+          <meta
+            name="description"
+            content={description}
+            data-pagefind-meta="description[content]"
+          />
+        )}
         <meta property="og:site_name" content={SITE_NAME} />
         <meta property="og:locale" content="ja_JP" />
         <meta property="og:type" content={post ? "article" : "website"} />
-        <meta property="og:title" content={title ?? SITE_NAME} />
+        <meta
+          property="og:title"
+          content={title ?? SITE_NAME}
+          data-pagefind-meta="title[content]"
+        />
         {description && <meta property="og:description" content={description} />}
-        {isSitePath(path) && <meta property="og:url" content={absoluteUrl(withBase(path))} />}
+        {isSitePath(path) && (
+          <meta
+            property="og:url"
+            content={absoluteUrl(withBase(path))}
+            data-pagefind-meta={`url:${withBase(path)}`}
+          />
+        )}
         <meta
           property="og:image"
           content={absoluteUrl(post ? post.ogImage : withBase("/og/site.png"))}
@@ -43,7 +59,11 @@ export default reactRenderer(({ children, c, title, description, post }) => {
         <meta property="og:image:alt" content={post ? post.title : SITE_NAME} />
         {post && (
           <>
-            <meta property="article:published_time" content={post.published} />
+            <meta
+              property="article:published_time"
+              content={post.published}
+              data-pagefind-meta="published[content]"
+            />
             {post.modified && <meta property="article:modified_time" content={post.modified} />}
           </>
         )}

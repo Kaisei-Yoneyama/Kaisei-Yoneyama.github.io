@@ -7,7 +7,9 @@ const components = {
     return <a href={isSitePath(href) ? withBase(href) : href} {...props} />;
   },
   img({ src, ...props }) {
-    return <img src={isSitePath(src) ? withBase(src) : src} {...props} />;
+    return (
+      <img src={isSitePath(src) ? withBase(src) : src} {...props} data-pagefind-ignore="all" />
+    );
   },
 } satisfies MDXComponents;
 

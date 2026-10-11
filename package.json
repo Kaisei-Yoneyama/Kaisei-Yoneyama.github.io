@@ -3,7 +3,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build --mode client && vite build",
+    "build": "vite build --mode client && vite build && pagefind --site dist",
     "preview": "vite preview",
     "test:unit": "vitest --project unit",
     "test:visual": "vitest --project vrt",
@@ -43,6 +43,7 @@
     "oxfmt": "^0.70.0",
     "oxlint": "^1.85.0",
     "oxlint-tsgolint": "^7.0.2003",
+    "pagefind": "^1.5.2",
     "remark-frontmatter": "^5.0.0",
     "remark-gfm": "^4.0.1",
     "remark-mdx-frontmatter": "^6.0.0",
