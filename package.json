@@ -20,15 +20,15 @@
   "dependencies": {
     "@fontsource-variable/noto-sans-jp": "^5.3.0",
     "@hono/react-renderer": "^1.0.1",
-    "@primer/react-brand": "^0.76.0",
+    "@primer/react-brand": "^0.77.0",
     "@takumi-rs/core": "^2.14.0",
     "@takumi-rs/helpers": "^2.14.0",
-    "hono": "^4.13.9",
+    "hono": "^4.13.13",
     "honox": "0.1.61",
     "lightningcss": "^1.33.0",
     "react": "^19.3.0",
     "react-dom": "^19.3.0",
-    "simple-icons": "^16.32.0",
+    "simple-icons": "^16.34.0",
     "zod": "^4.6.5"
   },
   "devDependencies": {
