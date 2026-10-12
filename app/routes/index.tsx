@@ -75,7 +75,7 @@ export default createRoute((c) => {
           <SectionIntro.Description>なかでも気に入っているものです。</SectionIntro.Description>
         </SectionIntro>
 
-        <Box marginBlockStart={{ narrow: 32, regular: 48 }}>
+        <Box marginBlockStart={48}>
           <Tiles>
             {SKILLS.map((skill) => (
               <Tiles.Item key={skill.name} name={skill.name}>
@@ -87,25 +87,20 @@ export default createRoute((c) => {
       </Section>
 
       {recentPosts.length > 0 && (
-        <section id="blog">
-          <Section
-            variant="gridline"
-            paddingBlockStart="normal"
-            paddingBlockEnd="condensed"
-            as="div"
-          >
-            <SectionIntro align="center">
-              <SectionIntro.Label>Blog</SectionIntro.Label>
-              <SectionIntro.Heading size="3">最近の記事</SectionIntro.Heading>
-              <SectionIntro.Description>
-                開発の記録や学んだことを書いています。
-              </SectionIntro.Description>
-              <SectionIntro.Link href={withBase("/blog/")}>すべての記事を見る</SectionIntro.Link>
-            </SectionIntro>
-          </Section>
+        <Section id="blog" variant="gridline" paddingBlockStart="normal" paddingBlockEnd="normal">
+          <SectionIntro align="center">
+            <SectionIntro.Label>Blog</SectionIntro.Label>
+            <SectionIntro.Heading size="3">最近の記事</SectionIntro.Heading>
+            <SectionIntro.Description>
+              開発の記録や学んだことを書いています。
+            </SectionIntro.Description>
+            <SectionIntro.Link href={withBase("/blog/")}>すべての記事を見る</SectionIntro.Link>
+          </SectionIntro>
 
-          <PostList posts={recentPosts} headingAs="h3" />
-        </section>
+          <Box marginBlockStart={48}>
+            <PostList posts={recentPosts} headingAs="h3" columnSpan={{ xlarge: 4 }} />
+          </Box>
+        </Section>
       )}
     </>,
     { description },

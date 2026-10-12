@@ -6,14 +6,6 @@
 }
 
 /*
- * ポインター操作でも輪郭線が出てしまうため、キーボード操作の場合だけ出るようにする
- * https://github.com/primer/brand/blob/4dea1ea49c3da5ff7cd82dd7ff96310af76a57b8/packages/react/src/Card/Card.module.css#L240-L243
- */
-[class*="Card__outer"]:focus-within:not(:has(:focus-visible)) {
-  outline: none;
-}
-
-/*
  * Hero と文字の左端を揃える
  * https://primer.style/brand/components/Section/react/#customize-gridline-inline-padding
  * https://github.com/primer/brand/blob/f62405685d19dcf9022320aea14240640331c746/packages/react/src/Hero/Hero.module.css#L25-L48

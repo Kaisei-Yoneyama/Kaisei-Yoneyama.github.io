@@ -12,20 +12,15 @@ export default createRoute((c) => {
     <>
       <Hero label="Blog" heading="ブログ" description={description} />
 
-      {posts.length === 0 ? (
-        <Section
-          variant="gridline"
-          paddingBlockStart="condensed"
-          paddingBlockEnd="condensed"
-          as="div"
-        >
+      <Section variant="gridline" paddingBlockStart="normal" paddingBlockEnd="normal" as="div">
+        {posts.length === 0 ? (
           <Text as="p" variant="muted">
             まだ記事はありません。
           </Text>
-        </Section>
-      ) : (
-        <PostList posts={posts} headingAs="h2" />
-      )}
+        ) : (
+          <PostList posts={posts} headingAs="h2" columnSpan={12} />
+        )}
+      </Section>
     </>,
     { title: "Blog", description },
   );

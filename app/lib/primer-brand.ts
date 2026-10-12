@@ -15,6 +15,7 @@ export const {
   Breadcrumbs,
   Button,
   Card,
+  Grid,
   Hero,
   MinimalFooter,
   Prose,
