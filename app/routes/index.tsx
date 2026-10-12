@@ -68,29 +68,32 @@ export default createRoute((c) => {
         ]}
       />
 
-      <Box borderBlockStartWidth="thin" borderColor="muted" borderStyle="solid">
-        <Section id="skills" paddingBlockStart="normal" paddingBlockEnd="normal">
-          <SectionIntro align="center">
-            <SectionIntro.Label>Skills</SectionIntro.Label>
-            <SectionIntro.Heading size="3">使い慣れている技術</SectionIntro.Heading>
-            <SectionIntro.Description>なかでも気に入っているものです。</SectionIntro.Description>
-          </SectionIntro>
+      <Section id="skills" variant="gridline" paddingBlockStart="normal" paddingBlockEnd="normal">
+        <SectionIntro align="center">
+          <SectionIntro.Label>Skills</SectionIntro.Label>
+          <SectionIntro.Heading size="3">使い慣れている技術</SectionIntro.Heading>
+          <SectionIntro.Description>なかでも気に入っているものです。</SectionIntro.Description>
+        </SectionIntro>
 
-          <Box marginBlockStart={{ narrow: 32, regular: 48 }}>
-            <Tiles variant="gridlines">
-              {SKILLS.map((skill) => (
-                <Tiles.Item key={skill.name} name={skill.name}>
-                  <Logo icon={skill.icon} />
-                </Tiles.Item>
-              ))}
-            </Tiles>
-          </Box>
-        </Section>
-      </Box>
+        <Box marginBlockStart={{ narrow: 32, regular: 48 }}>
+          <Tiles>
+            {SKILLS.map((skill) => (
+              <Tiles.Item key={skill.name} name={skill.name}>
+                <Logo icon={skill.icon} />
+              </Tiles.Item>
+            ))}
+          </Tiles>
+        </Box>
+      </Section>
 
       {recentPosts.length > 0 && (
-        <Box borderBlockStartWidth="thin" borderColor="muted" borderStyle="solid">
-          <Section id="blog" paddingBlockStart="normal" paddingBlockEnd="normal">
+        <section id="blog">
+          <Section
+            variant="gridline"
+            paddingBlockStart="normal"
+            paddingBlockEnd="condensed"
+            as="div"
+          >
             <SectionIntro align="center">
               <SectionIntro.Label>Blog</SectionIntro.Label>
               <SectionIntro.Heading size="3">最近の記事</SectionIntro.Heading>
@@ -99,17 +102,10 @@ export default createRoute((c) => {
               </SectionIntro.Description>
               <SectionIntro.Link href={withBase("/blog/")}>すべての記事を見る</SectionIntro.Link>
             </SectionIntro>
-
-            <Box
-              marginBlockStart={{ narrow: 32, regular: 48 }}
-              borderBlockStartWidth="thin"
-              borderColor="muted"
-              borderStyle="solid"
-            >
-              <PostList posts={recentPosts} headingAs="h3" />
-            </Box>
           </Section>
-        </Box>
+
+          <PostList posts={recentPosts} headingAs="h3" />
+        </section>
       )}
     </>,
     { description },

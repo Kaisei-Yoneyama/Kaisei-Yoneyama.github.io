@@ -14,6 +14,21 @@
 }
 
 /*
+ * Hero と文字の左端を揃える
+ * https://primer.style/brand/components/Section/react/#customize-gridline-inline-padding
+ * https://github.com/primer/brand/blob/f62405685d19dcf9022320aea14240640331c746/packages/react/src/Hero/Hero.module.css#L25-L48
+ */
+:root {
+  --brand-Section-variant-gridline-paddingInline: var(--base-size-32);
+}
+
+@media screen and (min-width: 63.25rem) {
+  :root {
+    --brand-Section-variant-gridline-paddingInline: var(--base-size-64);
+  }
+}
+
+/*
  * remark-rehype の README に記載の CSS がベースになっている
  * https://github.com/remarkjs/remark-rehype/blob/b5a2e5bb0f14607b6fc79ccbfdf0d518a4f304de/readme.md#css
  */

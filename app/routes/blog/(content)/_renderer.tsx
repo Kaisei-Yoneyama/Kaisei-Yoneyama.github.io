@@ -4,7 +4,7 @@ import { renderToStaticMarkup } from "react-dom/server";
 import Hero from "../../../islands/hero";
 import { withBase } from "../../../lib/path";
 import { posts } from "../../../lib/posts";
-import { Box, Breadcrumbs, Prose } from "../../../lib/primer-brand";
+import { Breadcrumbs, Prose, Section, Stack } from "../../../lib/primer-brand";
 
 const postPathPattern = new URLPattern({ pathname: "/blog/:slug" });
 
@@ -30,10 +30,11 @@ export default reactRenderer(({ children, Layout, c, title, description, frontma
   return (
     <Layout title={frontmatter.title} description={frontmatter.description} post={post}>
       <>
-        <Box
-          paddingBlockStart={{ narrow: 32, regular: 64 }}
-          paddingInlineStart={{ narrow: 32, regular: 64 }}
-          paddingInlineEnd={{ narrow: 32, regular: 64 }}
+        <Section
+          variant="gridline"
+          paddingBlockStart="condensed"
+          paddingBlockEnd="condensed"
+          as="div"
         >
           <Breadcrumbs>
             <Breadcrumbs.Item href={withBase("/")}>ホーム</Breadcrumbs.Item>
@@ -42,7 +43,7 @@ export default reactRenderer(({ children, Layout, c, title, description, frontma
               {frontmatter.title}
             </Breadcrumbs.Item>
           </Breadcrumbs>
-        </Box>
+        </Section>
 
         <Hero
           label="Blog"
@@ -51,17 +52,19 @@ export default reactRenderer(({ children, Layout, c, title, description, frontma
           dates={{ published: frontmatter.published, modified: frontmatter.modified }}
         />
 
-        {/* Hero のパディングに合わせて罫線から離す */}
-        <Box
-          padding={{ narrow: 32, regular: 64 }}
-          borderBlockStartWidth="thin"
-          borderColor="muted"
-          borderStyle="solid"
+        <Section
+          variant="gridline"
+          paddingBlockStart="normal"
+          paddingBlockEnd="normal"
+          as="div"
           data-pagefind-body=""
           data-pagefind-meta="category:Blog"
         >
-          <Prose html={html} enableFullWidth />
-        </Box>
+          {/* Prose の先頭と末尾のマージンが外に相殺されると Section の罫線が端まで引かれないため、flex コンテナーでラップする */}
+          <Stack padding="none">
+            <Prose html={html} enableFullWidth />
+          </Stack>
+        </Section>
       </>
     </Layout>
   );

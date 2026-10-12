@@ -1,5 +1,5 @@
 import type { Post } from "../lib/posts";
-import { Box, Card, Token } from "../lib/primer-brand";
+import { Card, Section, Token } from "../lib/primer-brand";
 
 type PostListProps = {
   posts: readonly Post[];
@@ -10,17 +10,12 @@ export default function PostList({ posts, headingAs }: PostListProps) {
   return (
     <>
       {posts.map((post) => (
-        // パディングを Hero と揃えるため、Card より細かい指定が可能な Box を利用している
-        // ブレークポイントの違いによる多少の不揃いは許容する
-        <Box
+        <Section
           key={post.slug}
-          paddingBlockStart={32}
-          paddingBlockEnd={32}
-          paddingInlineStart={{ narrow: 32, regular: 64 }}
-          paddingInlineEnd={{ narrow: 32, regular: 64 }}
-          borderBlockEndWidth="thin"
-          borderColor="muted"
-          borderStyle="solid"
+          variant="gridline"
+          paddingBlockStart="condensed"
+          paddingBlockEnd="condensed"
+          as="div"
         >
           <Card href={post.href} variant="minimal" fullWidth ctaText="続きを読む">
             <Card.Heading as={headingAs}>{post.title}</Card.Heading>
@@ -36,7 +31,7 @@ export default function PostList({ posts, headingAs }: PostListProps) {
               )}
             </Card.Tokens>
           </Card>
-        </Box>
+        </Section>
       ))}
     </>
   );

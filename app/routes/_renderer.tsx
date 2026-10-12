@@ -4,7 +4,7 @@ import { Link, Script } from "honox/server";
 import Footer from "../islands/footer";
 import Header from "../islands/header";
 import { isSitePath, withBase } from "../lib/path";
-import { Box, ThemeProvider } from "../lib/primer-brand";
+import { ThemeProvider } from "../lib/primer-brand";
 
 const SITE_NAME = "Kaisei Yoneyama";
 
@@ -82,18 +82,7 @@ export default reactRenderer(({ children, c, title, description, post }) => {
           }}
         >
           <Header />
-          <main>
-            <Box
-              borderInlineStartWidth="thin"
-              borderInlineEndWidth="thin"
-              borderColor="muted"
-              borderStyle="solid"
-              // Grid や Hero の max-width に合わせて 1280px にする
-              style={{ maxInlineSize: "1280px", marginInline: "auto" }}
-            >
-              {children}
-            </Box>
-          </main>
+          <main>{children}</main>
           <Footer copyrightStatement={`© ${new Date().getFullYear()} ${SITE_NAME}`} />
         </ThemeProvider>
       </body>
