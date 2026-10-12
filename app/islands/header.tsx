@@ -83,9 +83,6 @@ export default function Header() {
         searchTerm={searchTerm}
         ref={() => void initializePagefind()}
       />
-      <SubdomainNavBar.PrimaryAction href="https://github.com/Kaisei-Yoneyama">
-        GitHub
-      </SubdomainNavBar.PrimaryAction>
     </SubdomainNavBar>
   );
 }
