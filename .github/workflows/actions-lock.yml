@@ -1,0 +1,42 @@
+name: Actions lockfile
+
+on:
+  pull_request:
+    paths: &paths
+      - ".github/workflows/**"
+      - "**/action.yml"
+      - "**/action.yaml"
+  push:
+    branches:
+      - main
+    paths: *paths
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+cache-mode: none
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Install gh-actions-lock
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh extension install github/gh-actions-lock --pin v0.2.0
+
+      - name: Verify lockfile
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh actions-lock --verify
