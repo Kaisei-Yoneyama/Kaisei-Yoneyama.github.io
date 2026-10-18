@@ -26,7 +26,7 @@ jobs:
 
       - &setup
         name: Setup pnpm and Node.js
-        uses: pnpm/setup@v3.0.0
+        uses: pnpm/setup@v3.1.1
         with:
           cache: true
 

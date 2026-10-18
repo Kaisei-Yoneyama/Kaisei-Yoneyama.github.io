@@ -7,13 +7,13 @@ workflows:
         - 'actions/checkout@v7.0.1'
     '.github/workflows/ci.yml':
         - 'actions/checkout@v7.0.1'
-        - 'pnpm/setup@v3.0.0'
+        - 'pnpm/setup@v3.1.1'
     '.github/workflows/deploy.yml':
         - 'actions/checkout@v7.0.1'
         - 'actions/configure-pages@v6.0.0'
         - 'actions/deploy-pages@v5.0.1'
         - 'actions/upload-pages-artifact@v5.0.0'
-        - 'pnpm/setup@v3.0.0'
+        - 'pnpm/setup@v3.1.1'
 dependencies:
     'actions/checkout@v7.0.1':
         ref: 'v7.0.1'
@@ -42,8 +42,8 @@ dependencies:
         repo_id: 496012378
         uses:
             - 'actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f'
-    'pnpm/setup@v3.0.0':
-        ref: 'v3.0.0'
-        commit: 'sha1-fbda4c85fc2e1e08721cd8763afea8f48d60f024'
+    'pnpm/setup@v3.1.1':
+        ref: 'v3.1.1'
+        commit: 'sha1-a0881977cd8ea73b1ed212236c99ca10dcc80cf4'
         owner_id: 21320719
         repo_id: 1235693694
