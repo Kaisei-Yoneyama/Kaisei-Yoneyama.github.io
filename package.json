@@ -23,7 +23,7 @@
     "@primer/react-brand": "^0.78.0",
     "@takumi-rs/core": "^2.14.0",
     "@takumi-rs/helpers": "^2.14.0",
-    "hono": "^4.13.13",
+    "hono": "^4.13.14",
     "honox": "0.1.62",
     "lightningcss": "^1.33.0",
     "react": "^19.3.0",
