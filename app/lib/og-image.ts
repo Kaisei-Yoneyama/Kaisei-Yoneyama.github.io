@@ -95,12 +95,8 @@ const css = forTakumi(mainCss);
 
 /**
  * スタイルシートの @font-face を Takumi に登録するフォントに変換する。
- * @param weights フォントファミリーの名前をキーとするフォントの太さ
  */
-function fontLoaders(
-  specifier: string,
-  weights: Partial<Record<string, number>> = {},
-): FontLoader[] {
+function fontLoaders(specifier: string): FontLoader[] {
   const cssUrl = import.meta.resolve(specifier);
   const fontFaceRules: FontFaceRule[] = [];
   transform({
@@ -129,7 +125,6 @@ function fontLoaders(
     }
 
     const data = () => readFileSync(new URL(source.value.url.url, cssUrl));
-    const weight = weights[family.value];
 
     return [
       ranges
@@ -137,18 +132,14 @@ function fontLoaders(
             name: `${family.value} ${index}`,
             ranges,
             data,
-            weight,
           }
-        : { name: family.value, data, weight },
+        : { name: family.value, data },
     ];
   });
 }
 
 const fonts: FontLoader[] = [
-  ...fontLoaders("@primer/react-brand/fonts/fonts.css", {
-    // github/mona-sans#120 が修正されたら削除する
-    "Mona Sans": 200,
-  }),
+  ...fontLoaders("@primer/react-brand/fonts/fonts.css"),
   ...fontLoaders("@fontsource-variable/noto-sans-jp/wght.css"),
 ];
 
