@@ -18,18 +18,18 @@
     "preinstall": "npx only-allow pnpm"
   },
   "dependencies": {
-    "@fontsource-variable/noto-sans-jp": "^5.3.0",
+    "@fontsource-variable/noto-sans-jp": "^5.3.1",
     "@hono/react-renderer": "^1.0.1",
-    "@primer/react-brand": "^0.78.0",
-    "@takumi-rs/core": "^2.14.0",
-    "@takumi-rs/helpers": "^2.14.0",
+    "@primer/react-brand": "^0.80.1",
+    "@takumi-rs/core": "^2.17.1",
+    "@takumi-rs/helpers": "^2.17.1",
     "hono": "^4.13.13",
     "honox": "0.1.62",
     "lightningcss": "^1.33.0",
-    "react": "^19.3.0",
-    "react-dom": "^19.3.0",
-    "simple-icons": "^16.34.0",
-    "zod": "^4.6.5"
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1",
+    "simple-icons": "^16.35.0",
+    "zod": "^4.6.7"
   },
   "devDependencies": {
     "@blazediff/vitest": "^1.1.25",
