@@ -75,7 +75,7 @@ export default reactRenderer(({ children, c, title, description, post }) => {
       </head>
       <body>
         <ThemeProvider
-          colorMode="dark"
+          colorMode="auto"
           style={{
             backgroundColor: "var(--brand-color-canvas-default)",
             color: "var(--brand-color-text-default)",

@@ -2,7 +2,7 @@
 @import "@primer/react-brand/fonts/fonts.css";
 
 :root {
-  color-scheme: dark;
+  color-scheme: light dark;
 }
 
 /*
@@ -47,4 +47,22 @@
 
 [data-footnote-ref]::after {
   content: "]";
+}
+
+/*
+ * Shiki は複数のテーマを指定するとフォントスタイルを CSS 変数でしか出力しない
+ * https://github.com/shikijs/shiki/blob/f7d0167873fd676fe4e190bc9b53832fba9ee01d/docs/guide/dual-themes.md#query-based-dark-mode
+ */
+.shiki span {
+  font-style: var(--shiki-light-font-style);
+  font-weight: var(--shiki-light-font-weight);
+  text-decoration: var(--shiki-light-text-decoration);
+}
+
+@media (prefers-color-scheme: dark) {
+  .shiki span {
+    font-style: var(--shiki-dark-font-style);
+    font-weight: var(--shiki-dark-font-weight);
+    text-decoration: var(--shiki-dark-text-decoration);
+  }
 }

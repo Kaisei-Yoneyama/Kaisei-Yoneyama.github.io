@@ -14,7 +14,7 @@ export default function PostList({ posts, headingAs, columnSpan }: PostListProps
     <Grid enableGutters={false}>
       {posts.map((post) => (
         <Grid.Column key={post.slug} span={columnSpan}>
-          <Card ctaText="続きを読む" fullWidth href={post.href}>
+          <Card ctaText="続きを読む" fullWidth hasBorder href={post.href}>
             <Card.Heading as={headingAs}>{post.title}</Card.Heading>
             <Card.Description>{post.description}</Card.Description>
             <Card.Tokens position="block-end">

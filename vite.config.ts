@@ -54,7 +54,8 @@ export default defineConfig(({ mode }) => {
           [
             rehypeShiki,
             {
-              theme: "github-dark-default",
+              themes: { light: "github-light-default", dark: "github-dark-default" },
+              defaultColor: "light-dark()",
               rootStyle: false,
             } satisfies RehypeShikiOptions,
           ],
