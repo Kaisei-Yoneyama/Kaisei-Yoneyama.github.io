@@ -21,14 +21,14 @@
     "@fontsource-variable/noto-sans-jp": "^5.3.1",
     "@hono/react-renderer": "^1.0.1",
     "@primer/react-brand": "^0.80.1",
-    "@takumi-rs/core": "^2.17.1",
-    "@takumi-rs/helpers": "^2.17.1",
-    "hono": "^4.13.13",
+    "@takumi-rs/core": "^2.19.0",
+    "@takumi-rs/helpers": "^2.19.0",
+    "hono": "^4.13.16",
     "honox": "0.1.62",
     "lightningcss": "^1.33.0",
     "react": "^19.3.1",
     "react-dom": "^19.3.1",
-    "simple-icons": "^16.35.0",
+    "simple-icons": "^16.36.0",
     "zod": "^4.6.7"
   },
   "devDependencies": {
