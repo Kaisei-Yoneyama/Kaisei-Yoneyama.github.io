@@ -32,7 +32,7 @@
     "zod": "^4.6.7"
   },
   "devDependencies": {
-    "@blazediff/vitest": "^1.1.25",
+    "@blazediff/vitest": "^1.1.26",
     "@hono/vite-ssg": "^0.3.3",
     "@mdx-js/rollup": "^3.1.1",
     "@shikijs/rehype": "^4.5.0",
@@ -40,8 +40,8 @@
     "@types/node": "^24.19.2",
     "@types/react": "^19.3.0",
     "@types/react-dom": "^19.3.0",
-    "oxfmt": "^0.74.0",
-    "oxlint": "^1.89.0",
+    "oxfmt": "^0.75.0",
+    "oxlint": "^1.90.0",
     "oxlint-tsgolint": "^7.0.2005",
     "pagefind": "^1.5.2",
     "remark-frontmatter": "^5.0.0",
