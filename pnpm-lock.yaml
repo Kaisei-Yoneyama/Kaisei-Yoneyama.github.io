@@ -15,7 +15,7 @@ importers:
         version: 5.3.1
       '@hono/react-renderer':
         specifier: ^1.0.1
-        version: 1.0.1(hono@4.13.13)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
+        version: 1.0.1(hono@4.13.16)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
       '@primer/react-brand':
         specifier: ^0.80.1
         version: 0.80.1(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
@@ -26,11 +26,11 @@ importers:
         specifier: ^2.17.1
         version: 2.17.1(react@19.3.1)
       hono:
-        specifier: ^4.13.13
-        version: 4.13.13
+        specifier: ^4.13.16
+        version: 4.13.16
       honox:
         specifier: 0.1.62
-        version: 0.1.62(hono@4.13.13)
+        version: 0.1.62(hono@4.13.16)
       lightningcss:
         specifier: ^1.33.0
         version: 1.33.0
@@ -52,7 +52,7 @@ importers:
         version: 1.1.25(vitest@5.0.5(@types/node@24.19.2)(vite@8.3.5(@types/node@24.19.2)(yaml@2.9.0)))
       '@hono/vite-ssg':
         specifier: ^0.3.3
-        version: 0.3.3(hono@4.13.13)
+        version: 0.3.3(hono@4.13.16)
       '@mdx-js/rollup':
         specifier: ^3.1.1
         version: 3.1.1
@@ -1696,8 +1696,8 @@ packages:
   hastscript@5.1.2:
     resolution: {integrity: sha512-WlztFuK+Lrvi3EggsqOkQ52rKbxkXL3RwB6t5lwoa8QLMemoWfBuL43eDrwOamJyR7uKQKdmKYaBH1NZBiIRrQ==}
 
-  hono@4.13.13:
-    resolution: {integrity: sha512-CQ46U0ZkAGmbT/4UxdzzGJpacP2IeKgY4a5/tOI9AABbpOMfK739wfDXmv1usCk+3RkKj1hQy4/fjhiwa2xlrA==}
+  hono@4.13.16:
+    resolution: {integrity: sha512-AOLOEhvrV+iH92xXCnFr/5+3KjPKcI3xP63XJtX5spAnkznPdHijlIsUTpi7/9EhWqrTCekw5c5zh1K+YsVw7A==}
     engines: {node: '>=16.9.0'}
 
   honox@0.1.62:
@@ -3472,25 +3472,25 @@ snapshots:
 
   '@fontsource-variable/noto-sans-jp@5.3.1': {}
 
-  '@hono/node-server@1.19.18(hono@4.13.13)':
+  '@hono/node-server@1.19.18(hono@4.13.16)':
     dependencies:
-      hono: 4.13.13
+      hono: 4.13.16
 
-  '@hono/react-renderer@1.0.1(hono@4.13.13)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)':
+  '@hono/react-renderer@1.0.1(hono@4.13.16)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)':
     dependencies:
-      hono: 4.13.13
+      hono: 4.13.16
       react: 19.3.1
       react-dom: 19.3.1(react@19.3.1)
 
-  '@hono/vite-dev-server@0.25.3(hono@4.13.13)':
+  '@hono/vite-dev-server@0.25.3(hono@4.13.16)':
     dependencies:
-      '@hono/node-server': 1.19.18(hono@4.13.13)
-      hono: 4.13.13
+      '@hono/node-server': 1.19.18(hono@4.13.16)
+      hono: 4.13.16
       minimatch: 9.0.9
 
-  '@hono/vite-ssg@0.3.3(hono@4.13.13)':
+  '@hono/vite-ssg@0.3.3(hono@4.13.16)':
     dependencies:
-      hono: 4.13.13
+      hono: 4.13.16
 
   '@jridgewell/gen-mapping@0.3.13':
     dependencies:
@@ -4941,16 +4941,16 @@ snapshots:
       property-information: 5.6.0
       space-separated-tokens: 1.1.5
 
-  hono@4.13.13: {}
+  hono@4.13.16: {}
 
-  honox@0.1.62(hono@4.13.13):
+  honox@0.1.62(hono@4.13.16):
     dependencies:
       '@babel/generator': 7.29.1
       '@babel/parser': 7.29.3
       '@babel/traverse': 7.29.0
       '@babel/types': 7.29.0
-      '@hono/vite-dev-server': 0.25.3(hono@4.13.13)
-      hono: 4.13.13
+      '@hono/vite-dev-server': 0.25.3(hono@4.13.16)
+      hono: 4.13.16
       jsonc-parser: 3.3.1
       precinct: 12.2.0
     optionalDependencies:
